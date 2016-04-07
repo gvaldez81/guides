@@ -1,6 +1,6 @@
 # How do I ...
 
-## ... start a Rails app?
+## ... start a new Rails app?
 
 Use [suspenders]:
 

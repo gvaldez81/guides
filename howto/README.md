@@ -31,8 +31,8 @@ Capybara::Webkit.configure do |config|
 end
 ```
 
-When writing a spec, to make use of this you must set the `:js` flag for that
-test. For example, in `spec/features/user_signs_in_spec.rb`:
+When writing a spec, you must set the `:js` flag for that test to make use of
+capybara-webkit. For example, in `spec/features/user_signs_in_spec.rb`:
 
 ```ruby
 feature "Authentication", js: true do

@@ -12,9 +12,7 @@ General
 * Don't swallow exceptions or "fail silently."
 * Don't write code that guesses at future functionality.
 * Exceptions should be exceptional.
-* [Keep the code simple].
-
-[Keep the code simple]: http://www.readability.com/~/ko2aqda2
+* Keep the code simple.
 
 Object-Oriented Design
 ----------------------
@@ -29,7 +27,7 @@ Object-Oriented Design
   class exceeds 100 lines, it may be doing too many things.
 * [Tell, don't ask].
 
-[Tell, don't ask]: http://robots.thoughtbot.com/post/27572137956/tell-dont-ask
+[Tell, don't ask]: https://robots.thoughtbot.com/tell-dont-ask
 
 Ruby
 ----
@@ -157,23 +155,29 @@ Bundler
 [pessimistic version]: http://robots.thoughtbot.com/post/35717411108/a-healthy-bundle
 [versionless]: http://robots.thoughtbot.com/post/35717411108/a-healthy-bundle
 
-Postgres
---------
+Relational Databases
+--------------------
 
-* Avoid multicolumn indexes in Postgres. It [combines multiple indexes]
-  efficiently. Optimize later with a [compound index] if needed.
-* Consider a [partial index] for queries on booleans.
-* Constrain most columns as [`NOT NULL`].
 * [Index foreign keys].
+* Constrain most columns as [`NOT NULL`].
+* In a SQL view, only select columns you need (i.e., avoid `SELECT table.*`).
 * Use an `ORDER BY` clause on queries where the results will be displayed to a
   user, as queries without one may return results in a changing, arbitrary
   order.
 
+[Index foreign keys]: https://tomafro.net/2009/08/using-indexes-in-rails-index-your-associations
 [`NOT NULL`]: http://www.postgresql.org/docs/9.1/static/ddl-constraints.html#AEN2444
+
+Postgres
+--------
+
+* Avoid multicolumn indexes. Postgres [combines multiple indexes] efficiently.
+  Optimize later with a [compound index] if needed.
+* Consider a [partial index] for queries on booleans.
+
 [combines multiple indexes]: http://www.postgresql.org/docs/9.1/static/indexes-bitmap-scans.html
 [compound index]: http://www.postgresql.org/docs/9.2/static/indexes-bitmap-scans.html
 [partial index]: http://www.postgresql.org/docs/9.1/static/indexes-partial.html
-[Index foreign keys]: https://tomafro.net/2009/08/using-indexes-in-rails-index-your-associations
 
 Background Jobs
 ---------------
@@ -203,41 +207,54 @@ Web
 
 JavaScript
 ----------
+
 * Use the latest stable JavaScript syntax with a transpiler, such as [babel].
 * Include a `to_param` or `href` attribute when serializing ActiveRecord models,
   and use that when constructing URLs client side, rather than the ID.
+* Prefer `data-*` attributes over `id` and `class` attributes when targeting
+  HTML elements. #462
+* Avoid targeting HTML elements using classes intended for styling
+  purposes. #462
 
-[babel]: http://babeljs.io/
+[babel]: https://babeljs.io/
 
 HTML
 ----
 
-* Don't use a reset button for forms.
-* Prefer cancel links to cancel buttons.
 * Use `<button>` tags over `<a>` tags for actions.
 
 CSS
 ---
 
+* Document the project's CSS architecture (the README, component library or
+  style guide are good places to do this), including things such as:
+  * Organization of stylesheet directories and Sass partials
+  * Selector naming convention
+  * Code linting tools and configuration
+  * Browser support
 * Use Sass.
 * Use [Autoprefixer][autoprefixer] to generate vendor prefixes based on the
   project-specific browser support that is needed.
+* Prefer `overflow: auto` to `overflow: scroll`, because `scroll` will always
+  display scrollbars outside of macOS, even when content fits in the container.
 
 [autoprefixer]: https://github.com/postcss/autoprefixer
 
 Sass
 ----
 
-* Prefer `overflow: auto` to `overflow: scroll`, because `scroll` will always
-  display scrollbars outside of OS X, even when content fits in the container.
-* Use `image-url` and `font-url`, not `url`, so the asset pipeline will re-write
+* When using [sass-rails], use the provided [asset-helpers][asset-helpers]
+  (e.g. `image-url` and `font-url`), so that Rails' Asset Pipeline will re-write
   the correct paths to assets.
 * Prefer mixins to `@extend`.
+
+[sass-rails]: https://github.com/rails/sass-rails
+[asset-helpers]: https://github.com/rails/sass-rails#asset-helpers
 
 Browsers
 --------
 
-* Avoid supporting versions of Internet Explorer before IE10.
+* Avoid supporting versions of Internet Explorer before IE11.
 
 Objective-C
 -----------
@@ -307,6 +324,11 @@ Haskell
 
 * Avoid partial functions (`head`, `read`, etc).
 * Compile code with `-Wall -Werror`.
+
+Elixir
+------
+
+* Avoid macros.
 
 Ember
 -----
